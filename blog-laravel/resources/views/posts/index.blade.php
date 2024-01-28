@@ -15,7 +15,7 @@
         @endif
         @foreach($posts as $post)
             <li>
-                <a href="{{ route('posts.show', $post) }}">
+                <a href="{{ route('posts.show', $post) }}" class="text-blue-500 hover:text-blue-400 block py-2 text-xl">
                     {{ $post->title }}
                 </a>
             </li>
