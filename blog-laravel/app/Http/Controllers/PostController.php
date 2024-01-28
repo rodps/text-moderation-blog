@@ -42,20 +42,29 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        return view('posts.edit', [
+            'post' => Post::find($id)
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'text' => 'required'
+        ]);
+
+        $post = Post::find($id);
+
+        $post->title = $request->title;
+        $post->text = $request->text;
+
+        $post->save();
+
+        return redirect('/posts');
     }
 
     public function destroy(string $id)
