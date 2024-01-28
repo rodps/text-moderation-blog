@@ -7,9 +7,6 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('posts.index', [
@@ -17,20 +14,25 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'text' => 'required'
+        ]);
+
+        Post::create([
+            'title' => $request->title,
+            'text' => $request->text,
+            'slug' => str($request->title)->slug()
+        ]);
+
+        return redirect('/posts');
     }
 
     /**
