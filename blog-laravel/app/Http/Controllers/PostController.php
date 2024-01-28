@@ -35,12 +35,11 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        return view('posts.show', [
+            'post' => Post::find($id)
+        ]);
     }
 
     /**
