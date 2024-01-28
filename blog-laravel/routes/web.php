@@ -14,5 +14,5 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::redirect('/', '/posts');
+Route::redirect('/', '/posts')->name('home');
 Route::resource('posts', PostController::class);

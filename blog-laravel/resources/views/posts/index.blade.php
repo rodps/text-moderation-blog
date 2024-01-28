@@ -1,11 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-</head>
-<body>
-    <h1>My Blog</h1>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', 'Posts')
+
+@section('content')
+    <h1 class="text-3xl border-b border-gray-200 mb-3">
+        Posts
+    </h1>
+
+    <ul>
+        @if (count($posts) === 0)
+            <li class="text-center text-gray-500 py-3">
+                No posts yet
+            </li>
+        @endif
+        @foreach($posts as $post)
+            <li>
+                <a href="{{ route('posts.show', $post) }}">
+                    {{ $post->title }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+@endsection
+
