@@ -53,16 +53,7 @@
                 Submit
             </button>
         </div>
-
     </form>
-
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li class="text-red-500 text-xs">{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
 
     <a href="{{ route('posts.index') }}" class="text-gray-500 hover:underline">Back to posts</a>
 @endsection

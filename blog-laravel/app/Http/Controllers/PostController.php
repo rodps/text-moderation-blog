@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Jobs\PostModeration;
 
 class PostController extends Controller
 {
@@ -26,11 +27,15 @@ class PostController extends Controller
             'text' => 'required'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'text' => $request->text,
             'slug' => str($request->title)->slug()
         ]);
+        
+        PostModeration::dispatch($post);
+
+        $request->session()->flash('success', 'Post created!');
 
         return redirect('/posts');
     }
@@ -64,12 +69,17 @@ class PostController extends Controller
 
         $post->save();
 
+        $request->session()->flash('success', 'Post updated!');
+
         return redirect('/posts');
     }
 
     public function destroy(string $id)
     {
         Post::destroy($id);
+
+        session()->flash('success', 'Post deleted!');
+        
         return redirect('/posts');
     }
 }
